@@ -111,6 +111,15 @@ p {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Disabled button state */
+.btn-disabled {
+    background: #cccccc !important;
+    color: #888888 !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
 .options-container {
     display: flex;
     gap: 1rem;
@@ -157,6 +166,22 @@ p {
     color: white;
 }
 
+/* Styling untuk tombol tema spesifik */
+.btn-girlypop {
+    background-color: #ffcae9;
+    color: #333;
+}
+
+.btn-cute {
+    background-color: #aee6ff;
+    color: #333;
+}
+
+.btn-party {
+    background-color: #ffebb5;
+    color: #333;
+}
+
 #canvas {
     border: 2px solid #eee;
     background: white;
@@ -193,6 +218,11 @@ p {
     pointer-events: auto;
     cursor: move;
     user-select: none;
+    /* Memastikan emoji terlihat jelas */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .hidden {
