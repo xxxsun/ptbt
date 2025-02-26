@@ -10,22 +10,22 @@ const frameColors = {
     red: '#F44336'
 };
 
-// Actual sticker URLs should replace placeholders in production
+// Menggunakan emoji sebagai pengganti gambar stiker
 const stickerSets = {
     girlypop: [
-        { url: '/api/placeholder/60/60', offsetX: 0.1, offsetY: 0.1 },
-        { url: '/api/placeholder/50/50', offsetX: 0.8, offsetY: 0.2 },
-        { url: '/api/placeholder/70/70', offsetX: 0.5, offsetY: 0.8 }
+        { emoji: '🌸', size: 60, offsetX: 0.1, offsetY: 0.1 },
+        { emoji: '✨', size: 50, offsetX: 0.8, offsetY: 0.2 },
+        { emoji: '💖', size: 70, offsetX: 0.5, offsetY: 0.8 }
     ],
     cute: [
-        { url: '/api/placeholder/50/50', offsetX: 0.2, offsetY: 0.2 },
-        { url: '/api/placeholder/60/60', offsetX: 0.7, offsetY: 0.3 },
-        { url: '/api/placeholder/40/40', offsetX: 0.5, offsetY: 0.7 }
+        { emoji: '🐱', size: 50, offsetX: 0.2, offsetY: 0.2 },
+        { emoji: '🌈', size: 60, offsetX: 0.7, offsetY: 0.3 },
+        { emoji: '🦄', size: 40, offsetX: 0.5, offsetY: 0.7 }
     ],
     party: [
-        { url: '/api/placeholder/70/70', offsetX: 0.8, offsetY: 0.1 },
-        { url: '/api/placeholder/60/60', offsetX: 0.2, offsetY: 0.8 },
-        { url: '/api/placeholder/50/50', offsetX: 0.5, offsetY: 0.5 }
+        { emoji: '🎉', size: 70, offsetX: 0.8, offsetY: 0.1 },
+        { emoji: '🎊', size: 60, offsetX: 0.2, offsetY: 0.8 },
+        { emoji: '🎂', size: 50, offsetX: 0.5, offsetY: 0.5 }
     ],
     none: []
 };
@@ -258,27 +258,30 @@ function updateStickers() {
     // Add new stickers
     const stickers = stickerSets[selectedTheme];
     stickers.forEach(sticker => {
-        const stickerImg = document.createElement('img');
-        stickerImg.src = sticker.url;
-        stickerImg.className = 'sticker';
-        stickerImg.draggable = false; // Handle drag manually
+        const stickerDiv = document.createElement('div');
+        stickerDiv.className = 'sticker';
+        stickerDiv.style.fontSize = `${sticker.size}px`;
+        stickerDiv.textContent = sticker.emoji;
+        stickerDiv.draggable = false; // Handle drag manually
         
         // Position sticker
-        const x = sticker.offsetX * canvas.width - (stickerImg.width || 50) / 2;
-        const y = sticker.offsetY * canvas.height - (stickerImg.height || 50) / 2;
+        const x = sticker.offsetX * canvas.width - (sticker.size / 2);
+        const y = sticker.offsetY * canvas.height - (sticker.size / 2);
         
-        stickerImg.style.left = x + 'px';
-        stickerImg.style.top = y + 'px';
+        stickerDiv.style.left = x + 'px';
+        stickerDiv.style.top = y + 'px';
         
         // Add drag events
-        setupStickerDrag(stickerImg);
+        setupStickerDrag(stickerDiv);
         
         // Add to container
-        stickersContainer.appendChild(stickerImg);
+        stickersContainer.appendChild(stickerDiv);
         
         // Add to active stickers array
         activeStickers.push({
-            element: stickerImg,
+            element: stickerDiv,
+            emoji: sticker.emoji,
+            size: sticker.size,
             x: x,
             y: y
         });
@@ -376,13 +379,14 @@ function downloadImage() {
     // Add stickers to final image
     if (selectedTheme !== 'none') {
         activeStickers.forEach(sticker => {
-            const img = sticker.element;
-            const x = parseInt(img.style.left) || 0;
-            const y = parseInt(img.style.top) || 0;
-            const width = img.width || 50;
-            const height = img.height || 50;
+            const x = sticker.x;
+            const y = sticker.y;
+            const size = sticker.size;
             
-            finalCtx.drawImage(img, x, y, width, height);
+            finalCtx.font = `${size}px Arial`;
+            finalCtx.textAlign = 'center';
+            finalCtx.textBaseline = 'middle';
+            finalCtx.fillText(sticker.emoji, x + (size/2), y + (size/2));
         });
     }
     
