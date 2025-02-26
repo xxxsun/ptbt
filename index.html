@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photobooth Interaktif</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div id="app">
+            <!-- Camera Section -->
+            <div id="camera-section" class="section hidden">
+                <h2>Ambil Foto</h2>
+                <video id="video" autoplay playsinline></video>
+                <div class="controls">
+                    <button id="capture-btn" class="btn-primary">Ambil Foto</button>
+                    <button id="cancel-btn" class="btn-secondary">Batal</button>
+                </div>
+            </div>
+
+            <!-- Image Preview Section -->
+            <div id="preview-section" class="section hidden">
+                <h2>Edit Foto Anda</h2>
+                <div class="preview-container">
+                    <canvas id="canvas"></canvas>
+                    <div id="stickers-container" class="stickers-container"></div>
+                </div>
+                <div class="customization-panel">
+                    <div class="frame-selector">
+                        <h3>Pilih Warna Bingkai:</h3>
+                        <div id="frame-colors" class="options-container"></div>
+                    </div>
+                    <div class="theme-selector">
+                        <h3>Pilih Tema Stiker:</h3>
+                        <div id="themes" class="options-container"></div>
+                    </div>
+                    <div class="controls mt-4">
+                        <button id="download-btn" class="btn-primary">Unduh Foto</button>
+                        <button id="reset-btn" class="btn-secondary">Mulai Ulang</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Initial Screen -->
+            <div id="start-screen" class="section">
+                <h1>Photobooth Interaktif</h1>
+                <p>Ambil foto atau unggah gambar untuk mulai mengedit</p>
+                <div class="controls">
+                    <button id="start-camera-btn" class="btn-primary">Gunakan Kamera</button>
+                    <input type="file" id="file-input" accept="image/*" hidden>
+                    <button id="upload-btn" class="btn-secondary">Unggah Gambar</button>
+                </div>
+            </div>
+
+            <!-- Loading Screen -->
+            <div id="loading-screen" class="section hidden">
+                <div class="loader"></div>
+                <p>Memuat...</p>
+            </div>
+        </div>
+        <footer>
+            © 2024 Photobooth App
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
